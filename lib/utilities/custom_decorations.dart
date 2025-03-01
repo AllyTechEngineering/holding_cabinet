@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:udemy_mqtt_demo_linux/utilities/constants.dart';
+import 'package:holding_cabinet/utilities/constants.dart';
 
 
 class CustomDecorations {

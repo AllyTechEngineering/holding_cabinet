@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
-import 'package:udemy_mqtt_demo_linux/bloc/data_repository/data_repository.dart';
+import 'package:holding_cabinet/bloc/data_repository/data_repository.dart';
 import '../models/device_state_model.dart';
 
 class MqttService {

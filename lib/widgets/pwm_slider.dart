@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:udemy_mqtt_demo_linux/bloc/cubits/pwm_cubit/pwm_cubit.dart';
-import 'package:udemy_mqtt_demo_linux/utilities/constants.dart';
+import 'package:holding_cabinet/bloc/cubits/pwm_cubit/pwm_cubit.dart';
+import 'package:holding_cabinet/utilities/constants.dart';
 
 class PwmSlider extends StatelessWidget {
   const PwmSlider({super.key});

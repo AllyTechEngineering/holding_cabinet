@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:udemy_mqtt_demo_linux/bloc/cubits/timer_cubit/timer_cubit.dart';
+import 'package:holding_cabinet/bloc/cubits/timer_cubit/timer_cubit.dart';
 
 class TimerWidget extends StatelessWidget {
   const TimerWidget({super.key});

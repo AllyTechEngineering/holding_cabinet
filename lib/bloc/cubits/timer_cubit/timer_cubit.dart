@@ -1,8 +1,8 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:udemy_mqtt_demo_linux/bloc/data_repository/data_repository.dart';
-import 'package:udemy_mqtt_demo_linux/services/timer_services.dart';
+import 'package:holding_cabinet/bloc/data_repository/data_repository.dart';
+import 'package:holding_cabinet/services/timer_services.dart';
 part 'timer_state.dart';
 
 class TimerCubit extends Cubit<TimerState> {

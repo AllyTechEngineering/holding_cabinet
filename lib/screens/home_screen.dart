@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:udemy_mqtt_demo_linux/widgets/flash_slider.dart';
-import 'package:udemy_mqtt_demo_linux/widgets/flash_toggle_switch.dart';
-import 'package:udemy_mqtt_demo_linux/widgets/pwm_slider.dart';
-import 'package:udemy_mqtt_demo_linux/widgets/pwm_toggle_switch.dart';
-import 'package:udemy_mqtt_demo_linux/widgets/sensor_state_widget.dart';
+import 'package:holding_cabinet/widgets/flash_slider.dart';
+import 'package:holding_cabinet/widgets/flash_toggle_switch.dart';
+import 'package:holding_cabinet/widgets/pwm_slider.dart';
+import 'package:holding_cabinet/widgets/pwm_toggle_switch.dart';
+import 'package:holding_cabinet/widgets/sensor_state_widget.dart';
 // import 'package:udemy_mqtt_demo/widgets/timer_widget.dart';
-import 'package:udemy_mqtt_demo_linux/widgets/toggle_switch.dart';
+import 'package:holding_cabinet/widgets/toggle_switch.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});

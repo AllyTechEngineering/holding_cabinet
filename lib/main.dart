@@ -2,17 +2,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:udemy_mqtt_demo_linux/bloc/cubits/flash_cubit/flash_cubit.dart';
-import 'package:udemy_mqtt_demo_linux/bloc/cubits/pwm_cubit/pwm_cubit.dart';
-import 'package:udemy_mqtt_demo_linux/bloc/cubits/sensor_cubit/sensor_cubit.dart';
-import 'package:udemy_mqtt_demo_linux/bloc/cubits/timer_cubit/timer_cubit.dart';
-import 'package:udemy_mqtt_demo_linux/bloc/cubits/toggle_cubit/toggle_cubit.dart';
-import 'package:udemy_mqtt_demo_linux/bloc/data_repository/data_repository.dart';
-import 'package:udemy_mqtt_demo_linux/screens/home_screen.dart';
+import 'package:holding_cabinet/bloc/cubits/flash_cubit/flash_cubit.dart';
+import 'package:holding_cabinet/bloc/cubits/pwm_cubit/pwm_cubit.dart';
+import 'package:holding_cabinet/bloc/cubits/sensor_cubit/sensor_cubit.dart';
+import 'package:holding_cabinet/bloc/cubits/timer_cubit/timer_cubit.dart';
+import 'package:holding_cabinet/bloc/cubits/toggle_cubit/toggle_cubit.dart';
+import 'package:holding_cabinet/bloc/data_repository/data_repository.dart';
+import 'package:holding_cabinet/screens/home_screen.dart';
 // import 'package:udemy_mqtt_demo/services/gpio_services.dart';
 // import 'package:udemy_mqtt_demo/services/pwm_services.dart';
-import 'package:udemy_mqtt_demo_linux/services/timer_services.dart';
-import 'package:udemy_mqtt_demo_linux/utilities/custom_app_theme.dart';
+import 'package:holding_cabinet/services/timer_services.dart';
+import 'package:holding_cabinet/utilities/custom_app_theme.dart';
 
 // import 'package:window_manager/window_manager.dart';
 

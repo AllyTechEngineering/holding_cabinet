@@ -380,13 +380,13 @@
       "languageVersion": "3.3"
     },
     {
-      "name": "udemy_mqtt_demo_linux",
+      "name": "holding_cabinet",
       "rootUri": "../",
       "packageUri": "lib/",
       "languageVersion": "3.6"
     }
   ],
-  "generated": "2025-03-01T18:09:30.075688Z",
+  "generated": "2025-03-01T18:53:40.044540Z",
   "generator": "pub",
   "generatorVersion": "3.7.0",
   "flutterRoot": "file:///home/bob/snap/flutter/common/flutter",

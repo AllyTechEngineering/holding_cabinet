@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:udemy_mqtt_demo_linux/bloc/data_repository/data_repository.dart';
-import 'package:udemy_mqtt_demo_linux/models/device_state_model.dart';
+import 'package:holding_cabinet/bloc/data_repository/data_repository.dart';
+import 'package:holding_cabinet/models/device_state_model.dart';
 // import 'package:udemy_mqtt_demo/services/gpio_services.dart';
 
 part 'sensor_state.dart';

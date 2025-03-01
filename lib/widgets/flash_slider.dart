@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:udemy_mqtt_demo_linux/bloc/cubits/flash_cubit/flash_cubit.dart';
-import 'package:udemy_mqtt_demo_linux/utilities/constants.dart';
+import 'package:holding_cabinet/bloc/cubits/flash_cubit/flash_cubit.dart';
+import 'package:holding_cabinet/utilities/constants.dart';
 
 class FlashSlider extends StatelessWidget {
   const FlashSlider({super.key});
