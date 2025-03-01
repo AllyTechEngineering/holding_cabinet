@@ -1,0 +1,16 @@
+/home/bob/UdemyMyCourses/udemy_mqtt_demo_linux/build/linux/x64/debug/bundle/udemy_led_demo
+/home/bob/UdemyMyCourses/udemy_mqtt_demo_linux/build/linux/x64/debug/bundle/data/icudtl.dat
+/home/bob/UdemyMyCourses/udemy_mqtt_demo_linux/build/linux/x64/debug/bundle/lib/libflutter_linux_gtk.so
+/home/bob/UdemyMyCourses/udemy_mqtt_demo_linux/build/linux/x64/debug/bundle/lib/libscreen_retriever_linux_plugin.so
+/home/bob/UdemyMyCourses/udemy_mqtt_demo_linux/build/linux/x64/debug/bundle/lib/libwindow_manager_plugin.so
+/home/bob/UdemyMyCourses/udemy_mqtt_demo_linux/build/linux/x64/debug/bundle/data/flutter_assets/kernel_blob.bin
+/home/bob/UdemyMyCourses/udemy_mqtt_demo_linux/build/linux/x64/debug/bundle/data/flutter_assets/NativeAssetsManifest.json
+/home/bob/UdemyMyCourses/udemy_mqtt_demo_linux/build/linux/x64/debug/bundle/data/flutter_assets/NOTICES.Z
+/home/bob/UdemyMyCourses/udemy_mqtt_demo_linux/build/linux/x64/debug/bundle/data/flutter_assets/fonts/MaterialIcons-Regular.otf
+/home/bob/UdemyMyCourses/udemy_mqtt_demo_linux/build/linux/x64/debug/bundle/data/flutter_assets/shaders/ink_sparkle.frag
+/home/bob/UdemyMyCourses/udemy_mqtt_demo_linux/build/linux/x64/debug/bundle/data/flutter_assets/FontManifest.json
+/home/bob/UdemyMyCourses/udemy_mqtt_demo_linux/build/linux/x64/debug/bundle/data/flutter_assets/AssetManifest.bin
+/home/bob/UdemyMyCourses/udemy_mqtt_demo_linux/build/linux/x64/debug/bundle/data/flutter_assets/AssetManifest.json
+/home/bob/UdemyMyCourses/udemy_mqtt_demo_linux/build/linux/x64/debug/bundle/data/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
+/home/bob/UdemyMyCourses/udemy_mqtt_demo_linux/build/linux/x64/debug/bundle/data/flutter_assets/version.json
+/home/bob/UdemyMyCourses/udemy_mqtt_demo_linux/build/linux/x64/debug/bundle/data/flutter_assets/lib/.env
