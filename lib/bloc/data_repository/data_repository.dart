@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:holding_cabinet/models/device_state_model.dart';
 import 'package:holding_cabinet/services/mqtt_service.dart';
 
+
 class DataRepository {
   DeviceStateModel _deviceState = DeviceStateModel(
     pwmDutyCycle: 0,

@@ -4,15 +4,15 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:holding_cabinet/bloc/data_repository/data_repository.dart';
 import 'package:holding_cabinet/models/device_state_model.dart';
-// import 'package:udemy_mqtt_demo/services/pwm_services.dart';
+import 'package:holding_cabinet/services/pwm_services.dart';
 part 'pwm_state.dart';
 
 class PwmCubit extends Cubit<PwmState> {
   final DataRepository _dataRepository;
-  // final PwmService _pwmService;
+  final PwmService _pwmService;
   late final StreamSubscription<DeviceStateModel> _repoSubscription;
 
-  PwmCubit(this._dataRepository)
+  PwmCubit(this._dataRepository, this._pwmService)
       : super(PwmState(
           dutyCycle: _dataRepository.deviceState.pwmDutyCycle,
           isPwmOn: _dataRepository.deviceState.pwmOn,
@@ -25,10 +25,10 @@ class PwmCubit extends Cubit<PwmState> {
           'PwmCubit: deviceStateStream received: dutyCycle=$newDutyCycle, isPwmOn=$newIsPwmOn');
 
       // Update the PWM hardware with the new duty cycle.
-      // _pwmService.updatePwmDutyCycle(newDutyCycle);
+      _pwmService.updatePwmDutyCycle(newDutyCycle);
       // If the on/off state has changed, update the PWM system.
       if (newIsPwmOn != state.isPwmOn) {
-        // _pwmService.pwmSystemOnOff();
+        _pwmService.pwmSystemOnOff();
       }
       // Emit the new state so that the UI is updated.
       emit(PwmState(dutyCycle: newDutyCycle, isPwmOn: newIsPwmOn));

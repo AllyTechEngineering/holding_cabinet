@@ -4,16 +4,16 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:holding_cabinet/bloc/data_repository/data_repository.dart';
 import 'package:holding_cabinet/models/device_state_model.dart';
-// import 'package:udemy_mqtt_demo/services/gpio_services.dart';
+import 'package:holding_cabinet/services/gpio_services.dart';
 
 part 'flash_state.dart';
 
 class FlashCubit extends Cubit<FlashState> {
   final DataRepository _dataRepository;
-  // final GpioService _gpioService;
+  final GpioService _gpioService;
   late final StreamSubscription<DeviceStateModel> _repoSubscription;
 
-  FlashCubit(this._dataRepository)
+  FlashCubit(this._dataRepository, this._gpioService)
       : super(FlashState(
           isFlashing: _dataRepository.deviceState.flashOn,
           flashRate: _dataRepository.deviceState.flashRate,
@@ -26,10 +26,10 @@ class FlashCubit extends Cubit<FlashState> {
           'FlashCubit: deviceStateStream received: flashRate=$newFlashRate, isFlashing=$newIsFlashing');
 
       // Update the hardware: update flash rate always.
-      // _gpioService.updateDeviceFlashRate(newFlashRate);
+      _gpioService.updateDeviceFlashRate(newFlashRate);
       // If the on/off state has changed, update the flash system.
       if (newIsFlashing != state.isFlashing) {
-        // _gpioService.toggleFlashState();
+        _gpioService.toggleFlashState();
       }
       // Emit the new state to update the UI.
       emit(FlashState(flashRate: newFlashRate, isFlashing: newIsFlashing));

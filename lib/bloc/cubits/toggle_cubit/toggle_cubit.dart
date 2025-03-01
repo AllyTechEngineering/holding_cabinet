@@ -4,16 +4,16 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:holding_cabinet/bloc/data_repository/data_repository.dart';
 import 'package:holding_cabinet/models/device_state_model.dart';
-// import 'package:udemy_mqtt_demo/services/gpio_services.dart';
+import 'package:holding_cabinet/services/gpio_services.dart';
 
 part 'toggle_state.dart';
 
 class ToggleCubit extends Cubit<ToggleState> {
   final DataRepository _dataRepository;
-  // final GpioService _gpioService;
+  final GpioService _gpioService;
   late final StreamSubscription<DeviceStateModel> _repoSubscription;
 
-  ToggleCubit(this._dataRepository)
+  ToggleCubit(this._dataRepository, this._gpioService)
       : super(ToggleState(
           toggleDeviceState: _dataRepository.deviceState.toggleDeviceState,
         )) {
@@ -24,7 +24,7 @@ class ToggleCubit extends Cubit<ToggleState> {
       if (newToggleState != state.toggleDeviceState) {
         debugPrint(
             'ToggleCubit: deviceStateStream received new toggle state: $newToggleState');
-        // _gpioService.newToggleDeviceState();
+        _gpioService.newToggleDeviceState();
         emit(ToggleState(toggleDeviceState: newToggleState));
       }
     });
