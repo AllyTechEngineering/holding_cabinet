@@ -7,7 +7,7 @@ import 'package:udemy_mqtt_demo_linux/bloc/data_repository/data_repository.dart'
 import '../models/device_state_model.dart';
 
 class MqttService {
-  final String _broker = "192.168.1.111"; // Raspberry Pi IP
+  final String _broker = "192.168.1.202"; // Raspberry Pi IP
   // Model 5: 192.168.1.202 
   /*
   ip r 
