@@ -8,6 +8,13 @@ import '../models/device_state_model.dart';
 
 class MqttService {
   final String _broker = "192.168.1.111"; // Raspberry Pi IP
+  // Model 5: 192.168.1.202 
+  /*
+  ip r 
+  Here is the response for Model 5:
+  default via 192.168.1.1 dev eth0 proto dhcp src 192.168.1.202 metric 100 
+192.168.1.0/24 dev eth0 proto kernel scope link src 192.168.1.202 metric 100 
+  */
   final int _port = 1883;
   final String _clientId = "flutter_client_ios";
   final String _topic = "device/state";
