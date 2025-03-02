@@ -3,9 +3,13 @@ import 'package:flutter/foundation.dart';
 import 'package:holding_cabinet/models/device_state_model.dart';
 import 'package:holding_cabinet/services/mqtt_service.dart';
 
-
 class DataRepository {
   DeviceStateModel _deviceState = DeviceStateModel(
+    i2cTemperature: 0.0,
+    i2cHumidity: 0.0,
+    i2cPressure: 0.0,
+    tempertureSetPoint: 0,
+    humiditySetPoint: 0,
     pwmDutyCycle: 0,
     pwmOn: true,
     flashRate: 0,
@@ -41,7 +45,8 @@ class DataRepository {
     // Prevent unnecessary updates.
     if (_deviceState == newState) return;
     _deviceState = newState;
-debugPrint('DataRepository: updateDeviceState called with new state: $newState');
+    debugPrint(
+        'DataRepository: updateDeviceState called with new state: $newState');
     if (publish) {
       mqttService.publishDeviceState(newState);
     }

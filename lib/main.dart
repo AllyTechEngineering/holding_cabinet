@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:holding_cabinet/bloc/cubits/flash_cubit/flash_cubit.dart';
+import 'package:holding_cabinet/bloc/cubits/i2c_cubit/i2c_cubit.dart';
 import 'package:holding_cabinet/bloc/cubits/pwm_cubit/pwm_cubit.dart';
 import 'package:holding_cabinet/bloc/cubits/sensor_cubit/sensor_cubit.dart';
 import 'package:holding_cabinet/bloc/cubits/timer_cubit/timer_cubit.dart';
@@ -10,6 +11,7 @@ import 'package:holding_cabinet/bloc/cubits/toggle_cubit/toggle_cubit.dart';
 import 'package:holding_cabinet/bloc/data_repository/data_repository.dart';
 import 'package:holding_cabinet/screens/home_screen.dart';
 import 'package:holding_cabinet/services/gpio_services.dart';
+import 'package:holding_cabinet/services/i2c_service.dart';
 import 'package:holding_cabinet/services/pwm_services.dart';
 import 'package:holding_cabinet/services/timer_services.dart';
 import 'package:holding_cabinet/utilities/custom_app_theme.dart';
@@ -26,6 +28,7 @@ void main() async {
   final pwmService = PwmService();
   final gpioService = GpioService();
   final timerService = TimerService();
+  final i2cService = I2CService();
 
   // Initialize DataRepository
   final dataRepository = DataRepository();
@@ -42,6 +45,7 @@ void main() async {
     pwmService: pwmService,
     gpioService: gpioService,
     timerService: timerService,
+    i2cService: i2cService,
   ));
 }
 
@@ -66,6 +70,7 @@ class MyApp extends StatelessWidget {
   final PwmService pwmService;
   final GpioService gpioService;
   final TimerService timerService;
+  final I2CService i2cService;
 
   const MyApp({
     super.key,
@@ -73,6 +78,7 @@ class MyApp extends StatelessWidget {
     required this.pwmService,
     required this.gpioService,
     required this.timerService,
+    required this.i2cService,
   });
 
   @override
@@ -91,6 +97,8 @@ class MyApp extends StatelessWidget {
               create: (context) => SensorCubit(dataRepository, gpioService)),
           BlocProvider(
               create: (context) => ToggleCubit(dataRepository, gpioService)),
+          BlocProvider(
+              create: (context) => I2cCubit(dataRepository, i2cService)),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

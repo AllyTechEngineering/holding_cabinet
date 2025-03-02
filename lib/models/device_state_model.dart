@@ -1,6 +1,11 @@
 import 'package:equatable/equatable.dart';
 
 class DeviceStateModel extends Equatable {
+  final double i2cTemperature;
+  final double i2cHumidity;
+  final double i2cPressure;
+  final int tempertureSetPoint;
+  final int humiditySetPoint;
   final int pwmDutyCycle;
   final bool pwmOn;
   final int flashRate;
@@ -11,6 +16,11 @@ class DeviceStateModel extends Equatable {
   final bool toggleDeviceState;
 
   const DeviceStateModel({
+    required this.i2cTemperature,
+    required this.i2cHumidity,
+    required this.i2cPressure,
+    required this.tempertureSetPoint,
+    required this.humiditySetPoint,
     required this.pwmDutyCycle,
     required this.pwmOn,
     required this.flashRate,
@@ -23,6 +33,11 @@ class DeviceStateModel extends Equatable {
 
   // Create a copy of the model with optional changes
   DeviceStateModel copyWith({
+    double? i2cTemperature,
+    double? i2cHumidity,
+    double? i2cPressure,
+    int? tempertureSetPoint,
+    int? humiditySetPoint,
     int? pwmDutyCycle,
     bool? pwmOn,
     int? flashRate,
@@ -33,6 +48,11 @@ class DeviceStateModel extends Equatable {
     bool? toggleDeviceState,
   }) {
     return DeviceStateModel(
+      i2cTemperature: i2cTemperature ?? this.i2cTemperature,
+      i2cHumidity: i2cHumidity ?? this.i2cHumidity,
+      i2cPressure: i2cPressure ?? this.i2cPressure,
+      tempertureSetPoint: tempertureSetPoint ?? this.tempertureSetPoint,
+      humiditySetPoint: humiditySetPoint ?? this.humiditySetPoint,
       pwmDutyCycle: pwmDutyCycle ?? this.pwmDutyCycle,
       pwmOn: pwmOn ?? this.pwmOn,
       flashRate: flashRate ?? this.flashRate,
@@ -47,6 +67,11 @@ class DeviceStateModel extends Equatable {
   // Convert to JSON for MQTT integration
   Map<String, dynamic> toJson() {
     return {
+      "i2cTemperature": i2cTemperature,
+      "i2cHumidity": i2cHumidity,
+      "i2cPressure": i2cPressure,
+      "tempertureSetPoint": tempertureSetPoint,
+      "humiditySetPoint": humiditySetPoint,
       "pwmDutyCycle": pwmDutyCycle,
       "pwmOn": pwmOn,
       "flashRate": flashRate,
@@ -60,21 +85,27 @@ class DeviceStateModel extends Equatable {
 
   // Create from JSON (for MQTT receiving)
   factory DeviceStateModel.fromJson(Map<String, dynamic> json) {
-  return DeviceStateModel(
-    pwmDutyCycle: json["pwmDutyCycle"] ?? 0, // Default to 0 if null
-    pwmOn: json["pwmOn"] ?? false, // Default to false if null
-    flashRate: json["flashRate"] ?? 0, // Default to 0 if null
-    flashOn: json["flashOn"] ?? false, // Default to false if null
-    timerStart: json["timerStart"] != null
-        ? DateTime.parse(json["timerStart"])
-        : DateTime.now(), // Default to current time if null
-    timerEnd: json["timerEnd"] != null
-        ? DateTime.parse(json["timerEnd"])
-        : DateTime.now().add(const Duration(minutes: 1)), // Default +1 min
-    gpioSensorState: json["gpioSensorState"] ?? false, // Default to false
-    toggleDeviceState: json["toggleDeviceState"] ?? false, // Default to false
-  );
-}
+    return DeviceStateModel(
+      i2cTemperature: json["i2cTemperature"] ?? 0.0, // Default to 0.0 if null
+      i2cHumidity: json["i2cHumidity"] ?? 0.0, // Default to 0.0 if null
+      i2cPressure: json["i2cPressure"] ?? 0.0, // Default to 0.0 if null
+      tempertureSetPoint:
+          json["tempertureSetPoint"] ?? 0, // Default to 0 if null
+      humiditySetPoint: json["humiditySetPoint"] ?? 0, // Default to 0 if null
+      pwmDutyCycle: json["pwmDutyCycle"] ?? 0, // Default to 0 if null
+      pwmOn: json["pwmOn"] ?? false, // Default to false if null
+      flashRate: json["flashRate"] ?? 0, // Default to 0 if null
+      flashOn: json["flashOn"] ?? false, // Default to false if null
+      timerStart: json["timerStart"] != null
+          ? DateTime.parse(json["timerStart"])
+          : DateTime.now(), // Default to current time if null
+      timerEnd: json["timerEnd"] != null
+          ? DateTime.parse(json["timerEnd"])
+          : DateTime.now().add(const Duration(minutes: 1)), // Default +1 min
+      gpioSensorState: json["gpioSensorState"] ?? false, // Default to false
+      toggleDeviceState: json["toggleDeviceState"] ?? false, // Default to false
+    );
+  }
 
   // factory DeviceStateModel.fromJson(Map<String, dynamic> json) {
   //   return DeviceStateModel(
@@ -91,6 +122,11 @@ class DeviceStateModel extends Equatable {
 
   @override
   List<Object> get props => [
+        i2cTemperature,
+        i2cHumidity,
+        i2cPressure,
+        tempertureSetPoint,
+        humiditySetPoint,
         pwmDutyCycle,
         pwmOn,
         flashRate,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:holding_cabinet/widgets/flash_slider.dart';
 import 'package:holding_cabinet/widgets/flash_toggle_switch.dart';
+import 'package:holding_cabinet/widgets/i2c_data.dart';
 import 'package:holding_cabinet/widgets/pwm_slider.dart';
 import 'package:holding_cabinet/widgets/pwm_toggle_switch.dart';
 import 'package:holding_cabinet/widgets/sensor_state_widget.dart';
@@ -44,6 +45,8 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: const [
+                I2cData(),
+                SizedBox(height: 20),
                 ToggleSwitch(),
                 SizedBox(height: 20),
                 SensorStateWidget(),
