@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:holding_cabinet/widgets/flash_slider.dart';
 import 'package:holding_cabinet/widgets/flash_toggle_switch.dart';
+import 'package:holding_cabinet/widgets/humidity_setpoint_slider.dart';
 import 'package:holding_cabinet/widgets/i2c_data.dart';
-import 'package:holding_cabinet/widgets/pwm_slider.dart';
 import 'package:holding_cabinet/widgets/pwm_toggle_switch.dart';
 import 'package:holding_cabinet/widgets/sensor_state_widget.dart';
+import 'package:holding_cabinet/widgets/temp_setpoint_slider.dart';
 // import 'package:udemy_mqtt_demo/widgets/timer_widget.dart';
 import 'package:holding_cabinet/widgets/toggle_switch.dart';
 
@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                FlashSlider(),
+                TempSetpointSlider(),
                 SizedBox(height: 20),
                 FlashToggleSwitch(),
               ],
@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                PwmSlider(),
+                HumiditySetpointSlider(),
                 SizedBox(height: 20),
                 PwmToggleSwitch(),
               ],

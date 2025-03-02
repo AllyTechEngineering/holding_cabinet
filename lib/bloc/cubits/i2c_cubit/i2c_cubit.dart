@@ -12,8 +12,6 @@ class I2cCubit extends Cubit<I2cState> {
 
   I2cCubit(this._dataRepository, this._i2cService) : super(I2cState.initial()) {
     try {
-      _i2cService.initializeBme280();
-      // Start polling the sensor data.
       _i2cService.startPolling((data) {
         final temperature = data['temperature'] ?? 0.0;
         final humidity = data['humidity'] ?? 0.0;

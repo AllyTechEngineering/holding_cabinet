@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:holding_cabinet/bloc/cubits/setpoint_cubit/setpoint_cubit.dart';
 import 'package:holding_cabinet/utilities/constants.dart';
 
-class HumiditySetpoint extends StatelessWidget {
-  const HumiditySetpoint({super.key});
+class HumiditySetpointSlider extends StatelessWidget {
+  const HumiditySetpointSlider({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class HumiditySetpoint extends StatelessWidget {
                   ],
                 ),
                 child: Text(
-                  "Humidity\nSetpoint: ${state.humiditySetpoint}C",
+                  "Humidity\nSetpoint: ${state.humiditySetpoint}%",
                   style: Theme.of(context).textTheme.bodySmall,textAlign: TextAlign.center,
                 ),
               ),
@@ -66,10 +66,10 @@ class HumiditySetpoint extends StatelessWidget {
                       value: state.humiditySetpoint.toDouble(),
                       min: 0,
                       max: 100,
-                      divisions: 10,
+                      divisions: 100,
                       label: "${state.humiditySetpoint}%",
                       onChanged: (value) {
-                        context.read<SetpointCubit>().updateTempSetpoint(value.toInt());
+                        context.read<SetpointCubit>().updateHumiditySetpoint(value.toInt());
                       },
                     ),
                   ),

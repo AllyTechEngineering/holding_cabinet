@@ -4,13 +4,18 @@ import 'package:dart_periphery/dart_periphery.dart';
 import 'package:flutter/foundation.dart';
 
 class I2CService {
+  static final I2CService _instance = I2CService._internal();
   var i2c = I2C(1);
   Duration pollingInterval = const Duration(milliseconds: 1000);
   late Timer _pollingTimer;
-  // ignore: prefer_typing_uninitialized_variables
   late final BME280 bme280;
   bool _isInitialized = false;
-
+  factory I2CService() {
+    return _instance;
+  }
+  I2CService._internal() {
+    initializeBme280();
+  }
   void initializeBme280() {
     try {
       debugPrint('I2C info: ${i2c.getI2Cinfo()}');
