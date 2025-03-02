@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 
 class I2CService {
   var i2c = I2C(1);
-  Duration pollingInterval = const Duration(milliseconds: 500);
+  Duration pollingInterval = const Duration(milliseconds: 1000);
   late Timer _pollingTimer;
   // ignore: prefer_typing_uninitialized_variables
   late final BME280 bme280;

@@ -8,11 +8,12 @@ class HeaterService {
   static double? _setpointTemperature = 0.0;
   static double? _currentTemperature;
   static bool systemOnOffState = true;
-  static GPIO gpio20 = GPIO(20, GPIOdirection.gpioDirOut, 0);
+  late GPIO gpio20;
 
   void initializeHeaterService() {
     debugPrint('in initializeHeaterService');
     try {
+      gpio20 = GPIO(20, GPIOdirection.gpioDirOut, 0);
       debugPrint('GPIO 20 Infor: ${gpio20.getGPIOinfo()}');
     } catch (e) {
       gpio20.dispose();
@@ -71,5 +72,9 @@ class HeaterService {
     if (systemOnOffState == false) {
       gpio20.write(true); //Relay is active low
     }
+  }
+
+  void dispose() {
+    gpio20.dispose();
   }
 }

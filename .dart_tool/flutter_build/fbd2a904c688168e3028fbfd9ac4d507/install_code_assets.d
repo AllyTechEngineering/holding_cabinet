@@ -1,0 +1,1 @@
+ /home/bob/Documents/udemy/holding_cabinet/.dart_tool/flutter_build/fbd2a904c688168e3028fbfd9ac4d507/native_assets.json: 

@@ -21,17 +21,17 @@ class I2cData extends StatelessWidget {
             children: [
               Text(
                 'Temperature: $temperature°C',
-                style: const TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
               ),
               const SizedBox(height: 4),
               Text(
                 'Humidity: $humidity%',
-                style: const TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
               ),
               const SizedBox(height: 4),
               Text(
                 'Pressure: $pressure hPa',
-                style: const TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
               ),
             ],
           ),

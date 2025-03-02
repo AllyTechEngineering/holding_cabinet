@@ -9,11 +9,12 @@ class HumidifierService {
   static double? _setpointHumidity = 0.0;
   static double? _currentHumidity;
 
-  static GPIO gpio21 = GPIO(21, GPIOdirection.gpioDirOut, 0);
+  late GPIO gpio21;
 
   void initializeHumidifierService() {
     debugPrint('in initializeHumidifierService');
     try {
+      gpio21 = GPIO(21, GPIOdirection.gpioDirOut, 0);
       debugPrint('GPIO 21 Infor: ${gpio21.getGPIOinfo()}');
     } catch (e) {
       gpio21.dispose();
@@ -66,5 +67,9 @@ class HumidifierService {
     if (systemOnOffState == false) {
       gpio21.write(true); //Relay is active low
     }
+  }
+
+  void dispose() {
+    gpio21.dispose();
   }
 }

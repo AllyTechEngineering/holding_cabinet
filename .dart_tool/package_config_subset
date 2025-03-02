@@ -1,7 +1,7 @@
 archive
 3.0
-file:///home/bob/.pub-cache/hosted/pub.dev/archive-4.0.2/
-file:///home/bob/.pub-cache/hosted/pub.dev/archive-4.0.2/lib/
+file:///home/bob/.pub-cache/hosted/pub.dev/archive-4.0.4/
+file:///home/bob/.pub-cache/hosted/pub.dev/archive-4.0.4/lib/
 async
 3.4
 file:///home/bob/.pub-cache/hosted/pub.dev/async-2.12.0/
@@ -36,8 +36,8 @@ file:///home/bob/.pub-cache/hosted/pub.dev/cupertino_icons-1.0.8/
 file:///home/bob/.pub-cache/hosted/pub.dev/cupertino_icons-1.0.8/lib/
 dart_periphery
 3.3
-file:///home/bob/.pub-cache/hosted/pub.dev/dart_periphery-0.9.15/
-file:///home/bob/.pub-cache/hosted/pub.dev/dart_periphery-0.9.15/lib/
+file:///home/bob/.pub-cache/hosted/pub.dev/dart_periphery-0.9.17/
+file:///home/bob/.pub-cache/hosted/pub.dev/dart_periphery-0.9.17/lib/
 equatable
 2.12
 file:///home/bob/.pub-cache/hosted/pub.dev/equatable-2.0.7/
@@ -60,8 +60,8 @@ file:///home/bob/.pub-cache/hosted/pub.dev/file-7.0.1/
 file:///home/bob/.pub-cache/hosted/pub.dev/file-7.0.1/lib/
 flutter_bloc
 2.14
-file:///home/bob/.pub-cache/hosted/pub.dev/flutter_bloc-9.0.0/
-file:///home/bob/.pub-cache/hosted/pub.dev/flutter_bloc-9.0.0/lib/
+file:///home/bob/.pub-cache/hosted/pub.dev/flutter_bloc-9.1.0/
+file:///home/bob/.pub-cache/hosted/pub.dev/flutter_bloc-9.1.0/lib/
 flutter_dotenv
 2.12
 file:///home/bob/.pub-cache/hosted/pub.dev/flutter_dotenv-5.2.1/
@@ -116,8 +116,8 @@ file:///home/bob/.pub-cache/hosted/pub.dev/meta-1.16.0/
 file:///home/bob/.pub-cache/hosted/pub.dev/meta-1.16.0/lib/
 mqtt_client
 3.3
-file:///home/bob/.pub-cache/hosted/pub.dev/mqtt_client-10.7.0/
-file:///home/bob/.pub-cache/hosted/pub.dev/mqtt_client-10.7.0/lib/
+file:///home/bob/.pub-cache/hosted/pub.dev/mqtt_client-10.8.0/
+file:///home/bob/.pub-cache/hosted/pub.dev/mqtt_client-10.8.0/lib/
 nested
 2.12
 file:///home/bob/.pub-cache/hosted/pub.dev/nested-1.0.0/
@@ -228,8 +228,8 @@ file:///home/bob/.pub-cache/hosted/pub.dev/vm_service-14.3.1/
 file:///home/bob/.pub-cache/hosted/pub.dev/vm_service-14.3.1/lib/
 web
 3.4
-file:///home/bob/.pub-cache/hosted/pub.dev/web-1.1.0/
-file:///home/bob/.pub-cache/hosted/pub.dev/web-1.1.0/lib/
+file:///home/bob/.pub-cache/hosted/pub.dev/web-1.1.1/
+file:///home/bob/.pub-cache/hosted/pub.dev/web-1.1.1/lib/
 window_manager
 3.0
 file:///home/bob/.pub-cache/hosted/pub.dev/window_manager-0.4.3/
