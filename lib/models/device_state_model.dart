@@ -4,8 +4,8 @@ class DeviceStateModel extends Equatable {
   final double i2cTemperature;
   final double i2cHumidity;
   final double i2cPressure;
-  final int tempertureSetPoint;
-  final int humiditySetPoint;
+  final double tempertureSetPoint;
+  final double humiditySetPoint;
   final int pwmDutyCycle;
   final bool pwmOn;
   final int flashRate;
@@ -36,8 +36,8 @@ class DeviceStateModel extends Equatable {
     double? i2cTemperature,
     double? i2cHumidity,
     double? i2cPressure,
-    int? tempertureSetPoint,
-    int? humiditySetPoint,
+    double? tempertureSetPoint,
+    double? humiditySetPoint,
     int? pwmDutyCycle,
     bool? pwmOn,
     int? flashRate,

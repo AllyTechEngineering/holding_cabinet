@@ -5,15 +5,21 @@ import 'package:flutter/foundation.dart';
 import 'package:holding_cabinet/bloc/data_repository/data_repository.dart';
 import 'package:holding_cabinet/models/device_state_model.dart';
 import 'package:holding_cabinet/services/gpio_services.dart';
+import 'package:holding_cabinet/services/heater_service.dart';
+import 'package:holding_cabinet/services/humidifier_service.dart';
 
 part 'toggle_state.dart';
 
 class ToggleCubit extends Cubit<ToggleState> {
   final DataRepository _dataRepository;
   final GpioService _gpioService;
+  final HeaterService _heaterService;
+  final HumidifierService _humidifierService;
+
   late final StreamSubscription<DeviceStateModel> _repoSubscription;
 
-  ToggleCubit(this._dataRepository, this._gpioService)
+  ToggleCubit(this._dataRepository, this._gpioService, this._heaterService,
+      this._humidifierService)
       : super(ToggleState(
           toggleDeviceState: _dataRepository.deviceState.toggleDeviceState,
         )) {
@@ -24,6 +30,8 @@ class ToggleCubit extends Cubit<ToggleState> {
       if (newToggleState != state.toggleDeviceState) {
         debugPrint(
             'ToggleCubit: deviceStateStream received new toggle state: $newToggleState');
+        _heaterService.heaterSystemOnOff(newToggleState);
+        _humidifierService.humidifierSystemOnOff(newToggleState);
         _gpioService.newToggleDeviceState();
         emit(ToggleState(toggleDeviceState: newToggleState));
       }
@@ -34,7 +42,7 @@ class ToggleCubit extends Cubit<ToggleState> {
   // This method only updates the repository; the stream subscription will then
   // propagate the updated state and update the hardware.
   void updateDeviceState() {
-    debugPrint('ToggleCubit: updateDeviceState');
+    // debugPrint('ToggleCubit: updateDeviceState');
     final currentState = _dataRepository.deviceState.toggleDeviceState;
     final newState = !currentState;
     final updatedState =

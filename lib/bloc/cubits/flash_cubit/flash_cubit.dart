@@ -22,8 +22,8 @@ class FlashCubit extends Cubit<FlashState> {
     _repoSubscription = _dataRepository.deviceStateStream.listen((deviceState) {
       final newFlashRate = deviceState.flashRate;
       final newIsFlashing = deviceState.flashOn;
-      debugPrint(
-          'FlashCubit: deviceStateStream received: flashRate=$newFlashRate, isFlashing=$newIsFlashing');
+      // debugPrint(
+      //     'FlashCubit: deviceStateStream received: flashRate=$newFlashRate, isFlashing=$newIsFlashing');
 
       // Update the hardware: update flash rate always.
       _gpioService.updateDeviceFlashRate(newFlashRate);
@@ -38,7 +38,7 @@ class FlashCubit extends Cubit<FlashState> {
 
   // UI method: update flash rate.
   void updateFlashRate(int value) {
-    debugPrint('FlashCubit: updateFlashRate with value $value');
+    // debugPrint('FlashCubit: updateFlashRate with value $value');
     final updatedState =
         _dataRepository.deviceState.copyWith(flashRate: value);
     _dataRepository.updateDeviceState(updatedState);
@@ -46,7 +46,7 @@ class FlashCubit extends Cubit<FlashState> {
 
   // UI method: toggle flash on/off.
   void toggleFlash() {
-    debugPrint('FlashCubit: toggleFlash');
+    // debugPrint('FlashCubit: toggleFlash');
     final newFlashOn = !_dataRepository.deviceState.flashOn;
     final updatedState =
         _dataRepository.deviceState.copyWith(flashOn: newFlashOn);

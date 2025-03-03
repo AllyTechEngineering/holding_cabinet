@@ -69,7 +69,7 @@ class HumiditySetpointSlider extends StatelessWidget {
                       divisions: 100,
                       label: "${state.humiditySetpoint}%",
                       onChanged: (value) {
-                        context.read<SetpointCubit>().updateHumiditySetpoint(value.toInt());
+                        context.read<SetpointCubit>().updateHumiditySetpoint(value);
                       },
                     ),
                   ),

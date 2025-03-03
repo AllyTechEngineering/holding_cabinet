@@ -1,38 +1,36 @@
 part of 'i2c_cubit.dart';
+// i2c_state.dart
 
-class I2cState extends Equatable {
-  final double temperature;
-  final double humidity;
-  final double pressure;
 
-  const I2cState({
-    required this.temperature,
-    required this.humidity,
-    required this.pressure,
-  });
-  factory I2cState.initial() {
-    return const I2cState(
-      temperature: 0.0,
-      humidity: 0.0,
-      pressure: 0.0,
-    );
-  }
+abstract class I2cState extends Equatable {
+  const I2cState();
 
   @override
-  List<Object> get props => [temperature, humidity, pressure];
+  List<Object?> get props => [];
+}
 
-  I2cState copyWith({
-    double? temperature,
-    double? humidity,
-    double? pressure,
-  }) {
-    return I2cState(
-      temperature: temperature ?? this.temperature,
-      humidity: humidity ?? this.humidity,
-      pressure: pressure ?? this.pressure,
-    );
-  }
+class I2cLoading extends I2cState {
+  const I2cLoading();
+}
+
+class I2cLoaded extends I2cState {
+  final I2cModel sensorData;
+  const I2cLoaded(this.sensorData);
 
   @override
-  String toString() => 'I2cState(temperature: $temperature, humidity: $humidity, pressure: $pressure)';
+  List<Object?> get props => [sensorData];
+
+  @override
+  String toString() => 'I2cLoaded(sensorData: $sensorData)';
+}
+
+class I2cError extends I2cState {
+  final String message;
+  const I2cError(this.message);
+
+  @override
+  List<Object?> get props => [message];
+
+  @override
+  String toString() => 'I2cError(message: $message)';
 }

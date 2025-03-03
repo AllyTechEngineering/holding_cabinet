@@ -57,7 +57,7 @@ class PwmService {
   }
 
   void updatePwmDutyCycle(int updateDutyCycle) {
-    debugPrint('Updating PWM duty cycle to $updateDutyCycle%');
+    // debugPrint('Updating PWM duty cycle to $updateDutyCycle%');
     if (systemOnOffState) {
       pwm0.setDutyCycleNs(updateDutyCycle * 100000);
       pwm1.setDutyCycleNs(updateDutyCycle * 100000);
@@ -65,7 +65,7 @@ class PwmService {
   }
 
   void pwmSystemOnOff() {
-    debugPrint('Toggling PWM system on/off');
+    // debugPrint('Toggling PWM system on/off');
     systemOnOffState = !systemOnOffState;
     if (!systemOnOffState) {
       pwm0.disable();

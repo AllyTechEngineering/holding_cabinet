@@ -21,8 +21,8 @@ class PwmCubit extends Cubit<PwmState> {
     _repoSubscription = _dataRepository.deviceStateStream.listen((deviceState) {
       final newDutyCycle = deviceState.pwmDutyCycle;
       final newIsPwmOn = deviceState.pwmOn;
-      debugPrint(
-          'PwmCubit: deviceStateStream received: dutyCycle=$newDutyCycle, isPwmOn=$newIsPwmOn');
+      // debugPrint(
+      //     'PwmCubit: deviceStateStream received: dutyCycle=$newDutyCycle, isPwmOn=$newIsPwmOn');
 
       // Update the PWM hardware with the new duty cycle.
       _pwmService.updatePwmDutyCycle(newDutyCycle);
@@ -39,7 +39,7 @@ class PwmCubit extends Cubit<PwmState> {
   // This method only updates the repository state; the stream subscription
   // will later trigger the hardware update and emit the new state.
   void updatePwm(int value) {
-    debugPrint('PwmCubit: updatePwm with value $value');
+    // debugPrint('PwmCubit: updatePwm with value $value');
     final updatedState =
         _dataRepository.deviceState.copyWith(pwmDutyCycle: value);
     _dataRepository.updateDeviceState(updatedState);
@@ -49,7 +49,7 @@ class PwmCubit extends Cubit<PwmState> {
   // This method only updates the repository state; the stream subscription
   // will later trigger the hardware update and emit the new state.
   void togglePwm() {
-    debugPrint('PwmCubit: togglePwm');
+    // debugPrint('PwmCubit: togglePwm');
     final newPwmOn = !_dataRepository.deviceState.pwmOn;
     final updatedState = _dataRepository.deviceState.copyWith(pwmOn: newPwmOn);
     _dataRepository.updateDeviceState(updatedState);

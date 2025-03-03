@@ -26,6 +26,8 @@ class SetpointCubit extends Cubit<SetpointState> {
     _repoSubscription = _dataRepository.deviceStateStream.listen((deviceState) {
       final newTemperatureSetpoint = deviceState.tempertureSetPoint;
       final newHumiditySetpoint = deviceState.humiditySetPoint;
+      _heaterService.updateHeaterTempSetpoint(newTemperatureSetpoint);
+      _humidifierService.updateHumidifierSetpoint(newHumiditySetpoint);
       // Emit the new state so that the UI is updated.
       emit(SetpointState(
         temperatureSetpoint: newTemperatureSetpoint,
@@ -33,18 +35,14 @@ class SetpointCubit extends Cubit<SetpointState> {
       ));
     });
   }
-  void updateTempSetpoint(int value) {
+  void updateTempSetpoint(double value) {
     debugPrint('Temperature Setpoint: $value');
     final updatedState =
         _dataRepository.deviceState.copyWith(tempertureSetPoint: value);
     _dataRepository.updateDeviceState(updatedState);
   }
-  void updateHeaterTempSetpoint(double value) {
-    debugPrint('Heater Setpoint: $value');
-    _heaterService.updateHeaterTempSetpoint(value);
-  }
 
-  void updateHumiditySetpoint(int value) {
+  void updateHumiditySetpoint(double value) {
     debugPrint('Humidity Setpoint: $value');
     final updatedState =
         _dataRepository.deviceState.copyWith(humiditySetPoint: value);

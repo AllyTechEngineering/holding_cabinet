@@ -1,8 +1,8 @@
 part of 'setpoint_cubit.dart';
 
  class SetpointState extends Equatable {
-  final int temperatureSetpoint;
-  final int humiditySetpoint;
+  final double temperatureSetpoint;
+  final double humiditySetpoint;
   const SetpointState({
     required this.temperatureSetpoint,
     required this.humiditySetpoint,
@@ -17,8 +17,8 @@ part of 'setpoint_cubit.dart';
   List<Object> get props => [temperatureSetpoint, humiditySetpoint];
 
   SetpointState copyWith({
-    int? temperatureSetpoint,
-    int? humiditySetpoint,
+    double? temperatureSetpoint,
+    double? humiditySetpoint,
   }) {
     return SetpointState(
       temperatureSetpoint: temperatureSetpoint ?? this.temperatureSetpoint,

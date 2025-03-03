@@ -14,8 +14,8 @@ class Constants {
   static const String kOff = 'PWM: Off';
   static const String kLabel = 'Rate:';
   static const String kPwmLabel = 'PWM:';
-  static const String kStatusFalse = 'Sensor: Low';
-  static const String kStatusTrue = 'Sensor: High';
+  static const String kStatusFalse = 'Dough: Low';
+  static const String kStatusTrue = 'Dough: High';
   static const String kToggleTrue = 'Device On';
   static const String kToggleFalse = 'Device Off:';
   static const int kFlashRate = 500; // Flash rate in milliseconds

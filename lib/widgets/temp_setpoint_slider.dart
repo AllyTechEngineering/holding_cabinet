@@ -69,7 +69,7 @@ class TempSetpointSlider extends StatelessWidget {
                       divisions: 30,
                       label: "${state.temperatureSetpoint}C",
                       onChanged: (value) {
-                        context.read<SetpointCubit>().updateTempSetpoint(value.toInt());
+                        context.read<SetpointCubit>().updateTempSetpoint(value);
                       },
                     ),
                   ),

@@ -7,7 +7,7 @@ class HeaterService {
   bool _heaterState = false;
   static double? _setpointTemperature = 0.0;
   static double? _currentTemperature;
-  static bool systemOnOffState = true;
+  static bool _systemOnOffState = false;
   late GPIO gpio20;
   static final HeaterService _instance = HeaterService._internal();
   factory HeaterService() {
@@ -22,6 +22,7 @@ class HeaterService {
     try {
       gpio20 = GPIO(20, GPIOdirection.gpioDirOut, 0);
       debugPrint('GPIO 20 Infor: ${gpio20.getGPIOinfo()}');
+      gpio20.write(true); // Turn off the heater initially
     } catch (e) {
       gpio20.dispose();
       debugPrint('Init GPIO 20 as output Error: $e');
@@ -30,53 +31,44 @@ class HeaterService {
 
   void updateHeaterTempSetpoint(double setpoint) {
     _setpointTemperature = setpoint;
-    debugPrint(
-        'in HeaterService class: Heater setpoint updated to: $_setpointTemperature');
+    // debugPrint(
+    //     'in HeaterService class: Heater setpoint updated to: $_setpointTemperature');
   }
 
   void updateI2cTemp(double currentTemperature) {
     _currentTemperature = currentTemperature;
-    debugPrint(
-        'in HeaterService class: Current temperature updated to: $_currentTemperature');
+    // debugPrint(
+    //     'in HeaterService class: Current temperature updated to: $_currentTemperature');
     updateHeaterState();
   }
 
   // Method to update the heater state
   void updateHeaterState() {
-    if (systemOnOffState) {
-      // debugPrint('in updateHeaterState method first if statement $systemOnOffState');
+    //debugPrint(
+    // 'Before If: Setpoint Temperature: $_setpointTemperature\nCurrent Temperature: $_currentTemperature');
+    if (_systemOnOffState) {
+      debugPrint('_systemOnOffState: $_systemOnOffState');
       if (_currentTemperature! < _setpointTemperature! - onHysteresis) {
         _heaterState = false; //Relay is active low
-        // debugPrint(
-        //     'in updateHeaterState method second if statement $systemOnOffState');
-        debugPrint('Heater is ON: $_heaterState');
-        debugPrint('Current Temperature: $_currentTemperature');
-        debugPrint(
-            'Setpoint for Heater ON Temperature - onHysteresis: ${_setpointTemperature! - onHysteresis}');
-        debugPrint(
-            'Setpoint for Heater Off Temperature: ${_setpointTemperature! - offHysteresis}');
+        //debugPrint('Turn Heater on: _heaterState False: $_heaterState');
+        //debugPrint(
+        // 'On If: Setpoint Temperature: $_setpointTemperature\nCurrent Temperature: $_currentTemperature');
         gpio20.write(_heaterState);
       } else if (_currentTemperature! > _setpointTemperature! - offHysteresis) {
         _heaterState = true; //Relay is active low
-        // debugPrint(
-        //     'in updateHeaterState method else if statement $systemOnOffState');
-        // debugPrint('System On Off State: $systemOnOffState');
-        debugPrint('Heater is OFF: $_heaterState');
-        // debugPrint('Current Temperature: $_currentTemperature');
-        // debugPrint(
-        //     'Setpoint for Heater ON Temperature - offHysteresis: ${_setpointTemperature! - onHysteresis}}');
-        // debugPrint(
-        //     'Setpoint for Heater Off Temperature: ${_setpointTemperature! - offHysteresis}');
+        //debugPrint('Turn heater off: _heaterState True: $_heaterState');
+        //debugPrint(
+        // 'Off If: Setpoint Temperature: $_setpointTemperature\nCurrent Temperature: $_currentTemperature');
         gpio20.write(_heaterState);
       }
     }
   }
 
-  void heaterSystemOnOff() {
-    systemOnOffState = !systemOnOffState;
-    // debugPrint(
-    //     'in heaterSystemOnOff method System On/Off State: $systemOnOffState');
-    if (systemOnOffState == false) {
+  void heaterSystemOnOff(bool newSystemOnOffState) {
+    _systemOnOffState = newSystemOnOffState;
+    debugPrint(
+        'in heaterSystemOnOff method System On/Off State: $_systemOnOffState');
+    if (_systemOnOffState == false) {
       gpio20.write(true); //Relay is active low
     }
   }

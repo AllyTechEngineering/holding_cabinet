@@ -50,11 +50,11 @@ class MqttService {
         .withWillQos(MqttQos.atMostOnce);
 
     try {
-      debugPrint('Connecting to MQTT broker...');
+      // debugPrint('Connecting to MQTT broker...');
       await _client.connect();
 
       if (_client.connectionStatus!.state == MqttConnectionState.connected) {
-        debugPrint('Connected to MQTT broker at $_broker');
+        // debugPrint('Connected to MQTT broker at $_broker');
         _subscribeToTopic();
       } else {
         debugPrint('Failed to connect: ${_client.connectionStatus}');
@@ -77,7 +77,7 @@ class MqttService {
     final String payload =
         MqttPublishPayload.bytesToStringAsString(message.payload.message);
 
-    debugPrint("Received MQTT message: $payload");
+    // debugPrint("Received MQTT message: $payload");
 
     try {
       final Map<String, dynamic> jsonData = jsonDecode(payload);
@@ -87,9 +87,9 @@ class MqttService {
       if (newState != _dataRepository.deviceState) {
         _dataRepository.updateDeviceState(newState,
             publish: false); // Do NOT publish again
-        debugPrint("Updated device state from MQTT.");
+        // debugPrint("Updated device state from MQTT.");
       } else {
-        debugPrint("Received duplicate state, ignoring update.");
+        // debugPrint("Received duplicate state, ignoring update.");
       }
     } catch (e) {
       debugPrint("Error parsing MQTT data: $e");

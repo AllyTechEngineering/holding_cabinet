@@ -115,10 +115,12 @@ class MyApp extends StatelessWidget {
           BlocProvider(
               create: (context) => SensorCubit(dataRepository, gpioService)),
           BlocProvider(
-              create: (context) => ToggleCubit(dataRepository, gpioService)),
+              create: (context) => ToggleCubit(dataRepository, gpioService,
+                  heaterService, humidifierService)),
           BlocProvider(
               create: (context) =>
-                  I2cCubit(dataRepository, i2cService, heaterService)),
+                  I2cCubit(dataRepository, i2cService, heaterService,
+                      humidifierService)),
           BlocProvider(
               create: (context) => SetpointCubit(
                   dataRepository, heaterService, humidifierService)),
