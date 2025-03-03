@@ -90,7 +90,7 @@ class DeviceStateModel extends Equatable {
       i2cHumidity: json["i2cHumidity"] ?? 0.0, // Default to 0.0 if null
       i2cPressure: json["i2cPressure"] ?? 0.0, // Default to 0.0 if null
       tempertureSetPoint:
-          json["tempertureSetPoint"] ?? 0, // Default to 0 if null
+          json["tempertureSetPoint"] ?? 20, // Default to 0 if null
       humiditySetPoint: json["humiditySetPoint"] ?? 0, // Default to 0 if null
       pwmDutyCycle: json["pwmDutyCycle"] ?? 0, // Default to 0 if null
       pwmOn: json["pwmOn"] ?? false, // Default to false if null

@@ -22,7 +22,7 @@ class I2CService {
       bme280 = BME280(i2c);
       _isInitialized = true;
     } catch (e) {
-      disposeI2c();
+      dispose();
       debugPrint('Error initializing I2C device: $e');
     }
   }
@@ -41,7 +41,7 @@ class I2CService {
       getBme280Data = bme280.getValues();
     } catch (e) {
       debugPrint('Error reading sensor data: $e');
-      disposeI2c();
+      dispose();
       return {
         'temperature': 0.0,
         'humidity': 0.0,
@@ -66,13 +66,18 @@ class I2CService {
         onData(data);
       } catch (e) {
         debugPrint('Error polling I2C device: $e');
-        disposeI2c();
+        dispose();
       }
     });
   }
 
-  void disposeI2c() {
-    stopPolling();
-    i2c.dispose();
+  void dispose() {
+    try {
+      stopPolling();
+      i2c.dispose();
+    } on Exception catch (e) {
+      debugPrint('Error disposing I2C: $e');
+    }
+    debugPrint('I2C resources released');
   }
 }

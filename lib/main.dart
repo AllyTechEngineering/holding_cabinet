@@ -42,7 +42,8 @@ void main() async {
 
   // Ensure window_manager is initialized
   await windowManager.ensureInitialized();
-  final windowListener = MyWindowListener(pwmService, gpioService, heaterService, humidifierService);
+  final windowListener = MyWindowListener(
+      pwmService, gpioService, heaterService, humidifierService, i2cService);
   windowManager.addListener(windowListener);
 
   runApp(MyApp(
@@ -61,8 +62,10 @@ class MyWindowListener extends WindowListener {
   final GpioService gpioService;
   final HeaterService heaterService;
   final HumidifierService humidifierService;
+  final I2CService i2cService;
 
-  MyWindowListener(this.pwmService, this.gpioService, this.heaterService, this.humidifierService);
+  MyWindowListener(this.pwmService, this.gpioService, this.heaterService,
+      this.humidifierService, this.i2cService);
 
   @override
   void onWindowClose() async {
@@ -71,6 +74,7 @@ class MyWindowListener extends WindowListener {
     gpioService.dispose();
     heaterService.dispose();
     humidifierService.dispose();
+    i2cService.dispose();
     windowManager.destroy(); // Call destroy as a function
     exit(0);
   }
@@ -113,9 +117,11 @@ class MyApp extends StatelessWidget {
           BlocProvider(
               create: (context) => ToggleCubit(dataRepository, gpioService)),
           BlocProvider(
-              create: (context) => I2cCubit(dataRepository, i2cService)),
-              BlocProvider(
-              create: (context) => SetpointCubit(dataRepository,heaterService, humidifierService)),
+              create: (context) =>
+                  I2cCubit(dataRepository, i2cService, heaterService)),
+          BlocProvider(
+              create: (context) => SetpointCubit(
+                  dataRepository, heaterService, humidifierService)),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

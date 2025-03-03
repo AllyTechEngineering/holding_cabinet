@@ -8,8 +8,14 @@ class HumidifierService {
   static bool systemOnOffState = true;
   static double? _setpointHumidity = 0.0;
   static double? _currentHumidity;
-
   late GPIO gpio21;
+  static final HumidifierService _instance = HumidifierService._internal();
+  factory HumidifierService() {
+    return _instance;
+  }
+  HumidifierService._internal() {
+    initializeHumidifierService();
+  }
 
   void initializeHumidifierService() {
     debugPrint('in initializeHumidifierService');
@@ -70,6 +76,12 @@ class HumidifierService {
   }
 
   void dispose() {
-    gpio21.dispose();
+    try {
+      gpio21.write(true); // Turn off the humidifier
+      gpio21.dispose();
+    } on Exception catch (e) {
+      debugPrint('Error disposing GPIO 21: $e');
+    }
+    debugPrint('HumidifierService resources released');
   }
 }

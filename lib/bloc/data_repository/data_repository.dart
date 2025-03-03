@@ -8,7 +8,7 @@ class DataRepository {
     i2cTemperature: 0.0,
     i2cHumidity: 0.0,
     i2cPressure: 0.0,
-    tempertureSetPoint: 0,
+    tempertureSetPoint: 20,
     humiditySetPoint: 0,
     pwmDutyCycle: 0,
     pwmOn: true,

@@ -9,6 +9,13 @@ class HeaterService {
   static double? _currentTemperature;
   static bool systemOnOffState = true;
   late GPIO gpio20;
+  static final HeaterService _instance = HeaterService._internal();
+  factory HeaterService() {
+    return _instance;
+  }
+  HeaterService._internal() {
+    initializeHeaterService();
+  }
 
   void initializeHeaterService() {
     debugPrint('in initializeHeaterService');
@@ -21,16 +28,16 @@ class HeaterService {
     }
   }
 
-  void updateSetpoint(double setpoint) {
+  void updateHeaterTempSetpoint(double setpoint) {
     _setpointTemperature = setpoint;
     debugPrint(
         'in HeaterService class: Heater setpoint updated to: $_setpointTemperature');
   }
 
-  void updateTemperature({required double currentTemperature}) {
+  void updateI2cTemp(double currentTemperature) {
     _currentTemperature = currentTemperature;
-    // debugPrint(
-    //     'in HeaterService class: Current temperature updated to: $_currentTemperature');
+    debugPrint(
+        'in HeaterService class: Current temperature updated to: $_currentTemperature');
     updateHeaterState();
   }
 
@@ -43,11 +50,11 @@ class HeaterService {
         // debugPrint(
         //     'in updateHeaterState method second if statement $systemOnOffState');
         debugPrint('Heater is ON: $_heaterState');
-        // debugPrint('Current Temperature: $_currentTemperature');
-        // debugPrint(
-        //     'Setpoint for Heater ON Temperature - onHysteresis: ${_setpointTemperature! - onHysteresis}');
-        // debugPrint(
-        //     'Setpoint for Heater Off Temperature: ${_setpointTemperature! - offHysteresis}');
+        debugPrint('Current Temperature: $_currentTemperature');
+        debugPrint(
+            'Setpoint for Heater ON Temperature - onHysteresis: ${_setpointTemperature! - onHysteresis}');
+        debugPrint(
+            'Setpoint for Heater Off Temperature: ${_setpointTemperature! - offHysteresis}');
         gpio20.write(_heaterState);
       } else if (_currentTemperature! > _setpointTemperature! - offHysteresis) {
         _heaterState = true; //Relay is active low
@@ -75,6 +82,12 @@ class HeaterService {
   }
 
   void dispose() {
-    gpio20.dispose();
+    try {
+      gpio20.write(true); // Turn off the heater
+      gpio20.dispose();
+    } on Exception catch (e) {
+      debugPrint('Error disposing GPIO 20: $e');
+    }
+    debugPrint('HeaterService resources released');
   }
 }

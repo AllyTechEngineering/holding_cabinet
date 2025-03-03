@@ -2,15 +2,17 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:holding_cabinet/bloc/data_repository/data_repository.dart';
+import 'package:holding_cabinet/services/heater_service.dart';
 import 'package:holding_cabinet/services/i2c_service.dart';
 
 part 'i2c_state.dart';
 
 class I2cCubit extends Cubit<I2cState> {
   final I2CService _i2cService;
+  final HeaterService _heaterService;
   final DataRepository _dataRepository;
 
-  I2cCubit(this._dataRepository, this._i2cService) : super(I2cState.initial()) {
+  I2cCubit(this._dataRepository, this._i2cService, this._heaterService) : super(I2cState.initial()) {
     try {
       _i2cService.startPolling((data) {
         final temperature = data['temperature'] ?? 0.0;
@@ -33,6 +35,7 @@ class I2cCubit extends Cubit<I2cState> {
           i2cPressure: pressure,
         );
         _dataRepository.updateDeviceState(updatedDeviceState);
+      //  _heaterService.updateI2cTemp(temperature);
       });
     } catch (e) {
       debugPrint('Error starting I2C: $e');

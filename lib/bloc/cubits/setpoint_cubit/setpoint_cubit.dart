@@ -39,6 +39,10 @@ class SetpointCubit extends Cubit<SetpointState> {
         _dataRepository.deviceState.copyWith(tempertureSetPoint: value);
     _dataRepository.updateDeviceState(updatedState);
   }
+  void updateHeaterTempSetpoint(double value) {
+    debugPrint('Heater Setpoint: $value');
+    _heaterService.updateHeaterTempSetpoint(value);
+  }
 
   void updateHumiditySetpoint(int value) {
     debugPrint('Humidity Setpoint: $value');
@@ -46,6 +50,7 @@ class SetpointCubit extends Cubit<SetpointState> {
         _dataRepository.deviceState.copyWith(humiditySetPoint: value);
     _dataRepository.updateDeviceState(updatedState);
   }
+
     @override
   Future<void> close() {
     _repoSubscription.cancel();

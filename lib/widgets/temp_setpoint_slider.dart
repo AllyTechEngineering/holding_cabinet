@@ -64,9 +64,9 @@ class TempSetpointSlider extends StatelessWidget {
                     quarterTurns: 3,
                     child: Slider(
                       value: state.temperatureSetpoint.toDouble(),
-                      min: 0,
-                      max: 100,
-                      divisions: 100,
+                      min: 20,
+                      max: 50,
+                      divisions: 30,
                       label: "${state.temperatureSetpoint}C",
                       onChanged: (value) {
                         context.read<SetpointCubit>().updateTempSetpoint(value.toInt());
