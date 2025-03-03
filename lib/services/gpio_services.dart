@@ -6,16 +6,16 @@ import 'package:holding_cabinet/utilities/constants.dart';
 
 class GpioService {
   static final GpioService _instance = GpioService._internal();
-  static Duration pollingDuration =
+  static final Duration _pollingDuration =
       const Duration(milliseconds: Constants.kPollingDuration);
   Timer? _pollingTimer;
   Timer? _flashTimer;
-  late GPIO gpio5;
-  late GPIO gpio6;
-  late GPIO gpio22;
-  late GPIO gpio16;
-  late GPIO gpio27;
-  static int flashRate = 0;
+  late GPIO _gpio5;
+  late GPIO _gpio6;
+  late GPIO _gpio22;
+  late GPIO _gpio16;
+  late GPIO _gpio27;
+  static int _flashRate = 0;
 
   // Use a map for managing boolean states
   final Map<String, bool> _gpioStates = {
@@ -34,16 +34,16 @@ class GpioService {
   }
 
   void _initializeGpios() {
-    _initializeGpio(5, GPIOdirection.gpioDirOut, false, (gpio) => gpio5 = gpio);
-    _initializeGpio(6, GPIOdirection.gpioDirOut, false, (gpio) => gpio6 = gpio);
-    _initializeGpio(22, GPIOdirection.gpioDirOut, false, (gpio) => gpio22 = gpio);
-    _initializeGpio(27, GPIOdirection.gpioDirOut, false, (gpio) => gpio27 = gpio);
+    _initializeGpio(5, GPIOdirection.gpioDirOut, false, (gpio) => _gpio5 = gpio);
+    _initializeGpio(6, GPIOdirection.gpioDirOut, false, (gpio) => _gpio6 = gpio);
+    _initializeGpio(22, GPIOdirection.gpioDirOut, false, (gpio) => _gpio22 = gpio);
+    _initializeGpio(27, GPIOdirection.gpioDirOut, false, (gpio) => _gpio27 = gpio);
     _initializeGpio(16, GPIOdirection.gpioDirIn, null, (gpio) {
-      gpio16 = gpio;
-      bool initialInput = gpio16.read();
+      _gpio16 = gpio;
+      bool initialInput = _gpio16.read();
       setState("isInputDetected", initialInput);
       setLedState(initialInput);
-      // debugPrint('gpio16 initial state: $initialInput');
+      // debugPrint('_gpio16 initial state: $initialInput');
     });
   }
 
@@ -76,15 +76,15 @@ class GpioService {
 
   Stream<bool> pollInputState() async* {
     // Read and yield the initial state
-    bool lastState = gpio16.read();
+    bool lastState = _gpio16.read();
     setState("isInputDetected", lastState);
     setLedState(lastState);
     yield lastState; // Yield the initial state immediately
 
-    // Continuously poll gpio16 without blocking the main thread
+    // Continuously poll _gpio16 without blocking the main thread
     while (true) {
-      await Future.delayed(pollingDuration);
-      bool newState = gpio16.read();
+      await Future.delayed(_pollingDuration);
+      bool newState = _gpio16.read();
       if (newState != lastState) {
         lastState = newState;
         setState("isInputDetected", newState);
@@ -96,7 +96,7 @@ class GpioService {
 
   // Sensor input LED control
   void setLedState(bool state) {
-    gpio27.write(state);
+    _gpio27.write(state);
   }
 
   void stopInputPolling() {
@@ -108,20 +108,20 @@ class GpioService {
   void newToggleDeviceState() {
     final bool newState = !toggleDeviceState; // Toggle the state
     setState("toggleDeviceState", newState);
-    gpio5.write(newState);
+    _gpio5.write(newState);
   }
 
   void setRelayState(bool state) {
-    gpio6.write(state);
+    _gpio6.write(state);
   }
 
   void pwmMotorServiceDirection() {
-    gpio5.write(true);
-    gpio6.write(true);
+    _gpio5.write(true);
+    _gpio6.write(true);
     Future.delayed(const Duration(milliseconds: 500), () {
       setState("directionState", !directionState);
-      gpio5.write(!directionState);
-      gpio6.write(directionState);
+      _gpio5.write(!directionState);
+      _gpio6.write(directionState);
     });
   }
 
@@ -129,19 +129,19 @@ class GpioService {
    // debugPrint('Toggling flash state');
     bool currentState = isFlashing;
     setState("isFlashing", !currentState);
-    updateDeviceFlashRate(flashRate);
+    updateDeviceFlashRate(_flashRate);
   }
 
   void updateDeviceFlashRate(int newFlashRate) {
    // debugPrint('Updating flash rate to $newFlashRate');
-    flashRate = newFlashRate;
+    _flashRate = newFlashRate;
     _flashTimer?.cancel(); // Cancel any existing timer
 
     if (newFlashRate == 0 || !isFlashing) {
-      gpio22.write(false); // Ensure LED is off if not flashing
+      _gpio22.write(false); // Ensure LED is off if not flashing
     } else {
-      _flashTimer = Timer.periodic(Duration(milliseconds: flashRate), (_) {
-        gpio22.write(!gpio22.read()); // Toggle LED state
+      _flashTimer = Timer.periodic(Duration(milliseconds: _flashRate), (_) {
+        _gpio22.write(!_gpio22.read()); // Toggle LED state
       });
     }
   }
@@ -152,12 +152,12 @@ class GpioService {
     _flashTimer?.cancel();
 
     // Ensure all GPIOs are set to a safe state before disposing
-    for (var gpio in [gpio5, gpio6, gpio22, gpio27]) {
+    for (var gpio in [_gpio5, _gpio6, _gpio22, _gpio27]) {
       gpio.write(false);
     }
 
     // Dispose all GPIOs
-    for (var gpio in [gpio5, gpio6, gpio22, gpio16, gpio27]) {
+    for (var gpio in [_gpio5, _gpio6, _gpio22, _gpio16, _gpio27]) {
       gpio.dispose();
     }
 

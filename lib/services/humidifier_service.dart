@@ -2,13 +2,13 @@ import 'package:dart_periphery/dart_periphery.dart';
 import 'package:flutter/foundation.dart';
 
 class HumidifierService {
-  final double onHysteresis = 1.0;
-  final double offHysteresis = 0.5;
+  final double _onHysteresis = 1.0;
+  final double _offHysteresis = 0.5;
   bool _humidifierState = false;
-  static bool systemOnOffState = false;
+  static bool _systemOnOffState = false;
   static double? _setpointHumidity = 0.0;
   static double? _currentHumidity;
-  late GPIO gpio21;
+  late GPIO _gpio21;
   static final HumidifierService _instance = HumidifierService._internal();
   factory HumidifierService() {
     return _instance;
@@ -20,11 +20,11 @@ class HumidifierService {
   void initializeHumidifierService() {
     // debugPrint('in initializeHumidifierService');
     try {
-      gpio21 = GPIO(21, GPIOdirection.gpioDirOut, 0);
-      debugPrint('GPIO 21 Infor: ${gpio21.getGPIOinfo()}');
-      gpio21.write(true); // Turn off the humidifier initially
+      _gpio21 = GPIO(21, GPIOdirection.gpioDirOut, 0);
+      debugPrint('GPIO 21 Infor: ${_gpio21.getGPIOinfo()}');
+      _gpio21.write(true); // Turn off the humidifier initially
     } catch (e) {
-      gpio21.dispose();
+      _gpio21.dispose();
       debugPrint('Init GPIO 21 as output Error: $e');
     }
   }
@@ -42,35 +42,35 @@ class HumidifierService {
 
   // Method to update the heater state
   void updateHumdifierValue() {
-    if (systemOnOffState) {
-      if (_currentHumidity! < _setpointHumidity! - onHysteresis) {
+    if (_systemOnOffState) {
+      if (_currentHumidity! < _setpointHumidity! - _onHysteresis) {
         _humidifierState = false; // Relay is active low
-        debugPrint(
-            'Humidifier is On active low (false): $_humidifierState\n current Humidity: $_currentHumidity\n setpoint Humidity: $_setpointHumidity');
-        gpio21.write(_humidifierState); // Relay is active low
-      } else if (_currentHumidity! > _setpointHumidity! - offHysteresis) {
+        //debugPrint(
+           // 'Humidifier is On active low (false): $_humidifierState\n current Humidity: $_currentHumidity\n setpoint Humidity: $_setpointHumidity');
+        _gpio21.write(_humidifierState); // Relay is active low
+      } else if (_currentHumidity! > _setpointHumidity! - _offHysteresis) {
         _humidifierState = true; //Relay is active low
-        debugPrint(
-            'Humidifier is Off (true): $_humidifierState\n current Humidity: $_currentHumidity\n setpoint Humidity: $_setpointHumidity');
-        debugPrint('System On Off State: $systemOnOffState');
-        gpio21.write(_humidifierState);
+        // debugPrint(
+        //     'Humidifier is Off (true): $_humidifierState\n current Humidity: $_currentHumidity\n setpoint Humidity: $_setpointHumidity');
+        // debugPrint('System On Off State: $_systemOnOffState');
+        _gpio21.write(_humidifierState);
       }
     }
   }
 
   void humidifierSystemOnOff(bool newSystemOnOffState) {
-    systemOnOffState = newSystemOnOffState;
+    _systemOnOffState = newSystemOnOffState;
     // debugPrint(
-    //     'in heaterSystemOnOff method System On/Off State: $systemOnOffState');
-    if (systemOnOffState == false) {
-      gpio21.write(true); //Relay is active low
+    //     'in heaterSystemOnOff method System On/Off State: $_systemOnOffState');
+    if (_systemOnOffState == false) {
+      _gpio21.write(true); //Relay is active low
     }
   }
 
   void dispose() {
     try {
-      gpio21.write(true); // Turn off the humidifier
-      gpio21.dispose();
+      _gpio21.write(true); // Turn off the humidifier
+      _gpio21.dispose();
     } on Exception catch (e) {
       debugPrint('Error disposing GPIO 21: $e');
     }

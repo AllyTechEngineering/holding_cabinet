@@ -37,7 +37,7 @@ class HumiditySetpointSlider extends StatelessWidget {
                   ],
                 ),
                 child: Text(
-                  "Humidity\nSetpoint: ${state.humiditySetpoint}%",
+                  "Humidity\nSetpoint: ${state.humiditySetpoint.toStringAsFixed(0)}%",
                   style: Theme.of(context).textTheme.bodySmall,textAlign: TextAlign.center,
                 ),
               ),
@@ -63,11 +63,11 @@ class HumiditySetpointSlider extends StatelessWidget {
                   child: RotatedBox(
                     quarterTurns: 3,
                     child: Slider(
-                      value: state.humiditySetpoint.toDouble(),
+                      value: state.humiditySetpoint,
                       min: 0,
                       max: 100,
                       divisions: 100,
-                      label: "${state.humiditySetpoint}%",
+                      label: "${state.humiditySetpoint.toStringAsFixed(0)}%",
                       onChanged: (value) {
                         context.read<SetpointCubit>().updateHumiditySetpoint(value);
                       },

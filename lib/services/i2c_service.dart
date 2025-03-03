@@ -6,9 +6,9 @@ import 'package:holding_cabinet/models/i2c_model.dart';
 class I2CService {
   var i2c = I2C(1);
   // Polling interval is set to 1000ms.
-  Duration pollingInterval = const Duration(milliseconds: 1000);
+  final Duration _pollingInterval = const Duration(milliseconds: 1000);
   late Timer _pollingTimer;
-  late final BME280 bme280;
+  late final BME280 _bme280;
   bool _isInitialized = false;
 
   I2CService() {
@@ -18,7 +18,7 @@ class I2CService {
   void initializeBme280() {
     try {
       debugPrint('I2C info: ${i2c.getI2Cinfo()}');
-      bme280 = BME280(i2c);
+      _bme280 = BME280(i2c);
       _isInitialized = true;
     } catch (e) {
       dispose();
@@ -36,7 +36,7 @@ class I2CService {
     }
     dynamic sensorValues;
     try {
-      sensorValues = bme280.getValues();
+      sensorValues = _bme280.getValues();
     } catch (e) {
       debugPrint('Error reading sensor data: $e');
       dispose();
@@ -71,7 +71,7 @@ class I2CService {
     }
 
     // Set up the periodic polling.
-    _pollingTimer = Timer.periodic(pollingInterval, (_) async {
+    _pollingTimer = Timer.periodic(_pollingInterval, (_) async {
       try {
         final data = await readSensorData();
         final sensorModel = I2cModel(

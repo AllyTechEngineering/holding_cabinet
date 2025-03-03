@@ -37,7 +37,7 @@ class TempSetpointSlider extends StatelessWidget {
                   ],
                 ),
                 child: Text(
-                  "Temperature\nSetpoint: ${state.temperatureSetpoint}C",
+                  "Temperature\nSetpoint: ${state.temperatureSetpoint.toStringAsFixed(0)}C",
                   style: Theme.of(context).textTheme.bodySmall,textAlign: TextAlign.center,
                 ),
               ),
@@ -63,11 +63,11 @@ class TempSetpointSlider extends StatelessWidget {
                   child: RotatedBox(
                     quarterTurns: 3,
                     child: Slider(
-                      value: state.temperatureSetpoint.toDouble(),
+                      value: state.temperatureSetpoint,
                       min: 20,
                       max: 50,
                       divisions: 30,
-                      label: "${state.temperatureSetpoint}C",
+                      label: "${state.temperatureSetpoint.toStringAsFixed(0)}C",
                       onChanged: (value) {
                         context.read<SetpointCubit>().updateTempSetpoint(value);
                       },
