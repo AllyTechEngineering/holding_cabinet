@@ -10,7 +10,10 @@ import 'package:holding_cabinet/bloc/cubits/setpoint_cubit/setpoint_cubit.dart';
 import 'package:holding_cabinet/bloc/cubits/timer_cubit/timer_cubit.dart';
 import 'package:holding_cabinet/bloc/cubits/toggle_cubit/toggle_cubit.dart';
 import 'package:holding_cabinet/bloc/data_repository/data_repository.dart';
+import 'package:holding_cabinet/screens/authgate_screen.dart';
 import 'package:holding_cabinet/screens/home_screen.dart';
+import 'package:holding_cabinet/screens/login_screen.dart';
+import 'package:holding_cabinet/screens/signup_screen.dart';
 import 'package:holding_cabinet/services/gpio_services.dart';
 import 'package:holding_cabinet/services/heater_service.dart';
 import 'package:holding_cabinet/services/humidifier_service.dart';
@@ -37,6 +40,14 @@ void main() async {
 
   // Initialize DataRepository
   final dataRepository = DataRepository();
+  await dataRepository.initialize();
+
+// 🔧 Firebase write test
+  await dataRepository.updateDeviceTemp(25.3);
+
+// 🔍 Optional: Firebase read test
+  final temp = await dataRepository.fetchDeviceTemp();
+  debugPrint('Fetched temp from Firebase: $temp');
 
   // gpioService.initializeGpioService();
 
@@ -118,9 +129,8 @@ class MyApp extends StatelessWidget {
               create: (context) => ToggleCubit(dataRepository, gpioService,
                   heaterService, humidifierService, pwmService)),
           BlocProvider(
-              create: (context) =>
-                  I2cCubit(dataRepository, i2cService, heaterService,
-                      humidifierService)),
+              create: (context) => I2cCubit(dataRepository, i2cService,
+                  heaterService, humidifierService)),
           BlocProvider(
               create: (context) => SetpointCubit(
                   dataRepository, heaterService, humidifierService)),
@@ -129,7 +139,13 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Holding Cabinet',
           theme: CustomAppTheme.appTheme,
-          home: const HomeScreen(),
+           initialRoute: '/auth',
+          routes: {
+            '/auth': (context) => const AuthGateScreen(),
+            '/login': (context) => const LoginScreen(),
+            '/signup': (context) => const SignUpScreen(),
+            '/home': (context) => const HomeScreen(),
+          },
         ),
       ),
     );

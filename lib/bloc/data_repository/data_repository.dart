@@ -2,6 +2,7 @@ import 'dart:async';
 // import 'package:flutter/foundation.dart';
 import 'package:holding_cabinet/models/device_state_model.dart';
 import 'package:holding_cabinet/services/mqtt_service.dart';
+import 'package:holding_cabinet/services/firebase_service.dart';
 
 class DataRepository {
   DeviceStateModel _deviceState = DeviceStateModel(
@@ -19,6 +20,20 @@ class DataRepository {
     gpioSensorState: false,
     toggleDeviceState: false,
   );
+  // Firebase service instance for database operations.
+  final FirebaseService _firebaseService = FirebaseService();
+
+  Future<void> initialize() async {
+    await _firebaseService.initialize();
+  }
+
+  Future<void> updateDeviceTemp(double value) {
+    return _firebaseService.writeData('devices/pi5/temp', value);
+  }
+
+  Future<dynamic> fetchDeviceTemp() {
+    return _firebaseService.readData('devices/pi5/temp');
+  }
 
   late MqttService mqttService;
 
