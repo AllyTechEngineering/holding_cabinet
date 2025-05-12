@@ -1,7 +1,7 @@
 part of 'pwm_cubit.dart';
 
 class PwmState extends Equatable {
-  final int dutyCycle;
+  final double dutyCycle;
   final bool isPwmOn;
   
   const PwmState({required this.dutyCycle, required this.isPwmOn});
@@ -10,7 +10,7 @@ class PwmState extends Equatable {
   List<Object> get props => [dutyCycle, isPwmOn];
 
   PwmState copyWith({
-    int? dutyCycle,
+    double? dutyCycle,
     bool? isPwmOn,
   }) {
     return PwmState(

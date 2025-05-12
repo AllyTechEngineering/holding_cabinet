@@ -7,6 +7,7 @@ import 'package:holding_cabinet/models/device_state_model.dart';
 import 'package:holding_cabinet/services/gpio_services.dart';
 import 'package:holding_cabinet/services/heater_service.dart';
 import 'package:holding_cabinet/services/humidifier_service.dart';
+import 'package:holding_cabinet/services/pwm_services.dart';
 
 part 'toggle_state.dart';
 
@@ -15,11 +16,12 @@ class ToggleCubit extends Cubit<ToggleState> {
   final GpioService _gpioService;
   final HeaterService _heaterService;
   final HumidifierService _humidifierService;
+  final PwmService _pwmService;
 
   late final StreamSubscription<DeviceStateModel> _repoSubscription;
 
   ToggleCubit(this._dataRepository, this._gpioService, this._heaterService,
-      this._humidifierService)
+      this._humidifierService,this._pwmService)
       : super(ToggleState(
           toggleDeviceState: _dataRepository.deviceState.toggleDeviceState,
         )) {
@@ -33,6 +35,7 @@ class ToggleCubit extends Cubit<ToggleState> {
         _heaterService.heaterSystemOnOff(newToggleState);
         _humidifierService.humidifierSystemOnOff(newToggleState);
         _gpioService.newToggleDeviceState();
+        _pwmService.pwmSystemOnOff(newToggleState);
         emit(ToggleState(toggleDeviceState: newToggleState));
       }
     });

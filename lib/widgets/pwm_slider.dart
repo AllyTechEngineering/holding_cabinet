@@ -37,7 +37,7 @@ class PwmSlider extends StatelessWidget {
                   ],
                 ),
                 child: Text(
-                  "PWM\nDuty Cycle: ${state.dutyCycle}%",
+                  "Fan PWM\nDuty Cycle: ${state.dutyCycle.toStringAsFixed(0)}%",
                   style: Theme.of(context).textTheme.bodySmall,textAlign: TextAlign.center,
                 ),
               ),
@@ -67,9 +67,9 @@ class PwmSlider extends StatelessWidget {
                       min: 0,
                       max: 100,
                       divisions: 10,
-                      label: "${state.dutyCycle}%",
+                      label: "${state.dutyCycle.toStringAsFixed(0)}%",
                       onChanged: (value) {
-                        context.read<PwmCubit>().updatePwm(value.toInt());
+                        context.read<PwmCubit>().updatePwm(value);
                       },
                     ),
                   ),

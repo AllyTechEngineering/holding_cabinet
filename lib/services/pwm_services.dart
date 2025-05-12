@@ -8,9 +8,9 @@ import 'package:flutter/foundation.dart';
 // Located on the readme page.
 class PwmService {
   static final PwmService _instance = PwmService._internal();
-  late PWM pwm0;
-  late PWM pwm1;
-  static bool systemOnOffState = true;
+  late PWM _pwm0;
+  late PWM _pwm1;
+  static bool _systemOnOffState = false;
 
   factory PwmService() {
     return _instance;
@@ -23,10 +23,10 @@ class PwmService {
   void _initializePwm() {
     try {
       _exportPwm(); // Ensure PWM0 is available before opening it
-      pwm0 = PWM(2, 0);
-      pwm1 = PWM(2, 1);
-      _configurePwm(pwm0);
-      _configurePwm(pwm1);
+      _pwm0 = PWM(2, 0);
+      _pwm1 = PWM(2, 1);
+      _configurePwm(_pwm0);
+      _configurePwm(_pwm1);
     } catch (e) {
       debugPrint('Error initializing PwmService: $e');
     }
@@ -42,44 +42,44 @@ class PwmService {
   /// Ensures PWM is exported before opening it
   void _exportPwm() {
     try {
-      if (!File('/sys/class/pwm/pwmchip2/pwm0').existsSync()) {
+      if (!File('/sys/class/pwm/pwmchip2/_pwm0').existsSync()) {
         debugPrint('Exporting PWM0...');
         Process.runSync(
             'sh', ['-c', 'echo 0 > /sys/class/pwm/pwmchip2/export']);
-        debugPrint('Exporting PWM1...');
+        debugPrint('Exporting _PWM1...');
         Process.runSync(
             'sh', ['-c', 'echo 1 > /sys/class/pwm/pwmchip2/export']);
         sleep(Duration(milliseconds: 500)); // Wait for the system to process
       }
     } catch (e) {
-      debugPrint('Error exporting PWM0 or PWM1: $e');
+      debugPrint('Error exporting PWM0 or _PWM1: $e');
     }
   }
 
-  void updatePwmDutyCycle(int updateDutyCycle) {
+  void updatePwmDutyCycle(double updateDutyCycle) {
     // debugPrint('Updating PWM duty cycle to $updateDutyCycle%');
-    if (systemOnOffState) {
-      pwm0.setDutyCycleNs(updateDutyCycle * 100000);
-      pwm1.setDutyCycleNs(updateDutyCycle * 100000);
+    if (_systemOnOffState) {
+      _pwm0.setDutyCycleNs(updateDutyCycle.toInt() * 100000);
+      _pwm1.setDutyCycleNs(updateDutyCycle.toInt() * 100000);
     }
   }
 
-  void pwmSystemOnOff() {
-    // debugPrint('Toggling PWM system on/off');
-    systemOnOffState = !systemOnOffState;
-    if (!systemOnOffState) {
-      pwm0.disable();
-      pwm1.disable();
+  void pwmSystemOnOff(bool newSystemOnOffState) {
+    // debugPrint('Toggling PWM system on/off: $newSystemOnOffState');
+    _systemOnOffState = newSystemOnOffState;
+    if (!_systemOnOffState) {
+      _pwm0.disable();
+      _pwm1.disable();
     } else {
-      pwm0.enable();
-      pwm1.enable();
+      _pwm0.enable();
+      _pwm1.enable();
     }
   }
 
   //Disposal
   // Add all the enabled pwms to the dispose method
   void dispose() {
-    for (var pwm in [pwm0, pwm1]) {
+    for (var pwm in [_pwm0, _pwm1]) {
       pwm.disable();
       pwm.dispose();
     }

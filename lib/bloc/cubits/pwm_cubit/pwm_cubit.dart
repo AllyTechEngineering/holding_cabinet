@@ -26,10 +26,10 @@ class PwmCubit extends Cubit<PwmState> {
 
       // Update the PWM hardware with the new duty cycle.
       _pwmService.updatePwmDutyCycle(newDutyCycle);
-      // If the on/off state has changed, update the PWM system.
-      if (newIsPwmOn != state.isPwmOn) {
-        _pwmService.pwmSystemOnOff();
-      }
+      // // If the on/off state has changed, update the PWM system.
+      // if (newIsPwmOn != state.isPwmOn) {
+      //   _pwmService.pwmSystemOnOff();
+      // }
       // Emit the new state so that the UI is updated.
       emit(PwmState(dutyCycle: newDutyCycle, isPwmOn: newIsPwmOn));
     });
@@ -38,7 +38,7 @@ class PwmCubit extends Cubit<PwmState> {
   // Called when the UI slider is adjusted.
   // This method only updates the repository state; the stream subscription
   // will later trigger the hardware update and emit the new state.
-  void updatePwm(int value) {
+  void updatePwm(double value) {
     // debugPrint('PwmCubit: updatePwm with value $value');
     final updatedState =
         _dataRepository.deviceState.copyWith(pwmDutyCycle: value);
